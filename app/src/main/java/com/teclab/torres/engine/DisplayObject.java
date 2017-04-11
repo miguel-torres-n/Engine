@@ -8,7 +8,7 @@ import android.view.animation.Transformation;
 /**
  * Created by Heat on 01/11/2016.
  */
-public class DisplayObject
+public class DisplayObject extends EventDispatcher
 {
 
     public int x,y,height,pivotX,pivotY,width;
@@ -18,9 +18,13 @@ public class DisplayObject
     //public Transformations transformation;
     public boolean visible;
 
-    public DisplayObject(Resources resources)
+    public DisplayObject()
     {
-        this.resources = resources;
+        x=y=0;
+        scaleX=scaleY=1.0f;
+        pivotX=pivotY=0;
+        opacity =1.0f;
+        width=height=0;
     }
     public void onDraw(Canvas canvas)
     {
@@ -36,12 +40,14 @@ public class DisplayObject
     }
     public void dispatchEvent(String type)
     {
+        Event e = new Event(type);
 
     }
     public void dispose()
     {
 
     }
+
     public Point globalToLocal(Point p)
     {
 

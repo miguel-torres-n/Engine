@@ -27,7 +27,7 @@ public class Sprite extends DisplayObject{
  
 
        public Sprite(String id, Resources resources) {
-           super(resources);
+           super();
            bmp = this.resources.getBmp(id);
            this.width = bmp.getWidth() / BMP_COLUMNS;
            this.height = bmp.getHeight() / BMP_ROWS;
