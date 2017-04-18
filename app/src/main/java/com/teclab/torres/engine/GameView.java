@@ -20,94 +20,66 @@ public class GameView extends SurfaceView {
     private MainScene myScene;
     public Resources resources;
 
-    public GameView(Context context) {
-
+    public GameView(Context context)
+    {
         super(context);
         resources = new Resources(this);
         myScene = new MainScene(this.resources);
         gameLoopThread = new GameLoopThread(this);
-
-        getHolder().addCallback(new SurfaceHolder.Callback() {
-
-
-
-            public void surfaceDestroyed(SurfaceHolder holder) {
-
+        getHolder().addCallback(new SurfaceHolder.Callback()
+        {
+            public void surfaceDestroyed(SurfaceHolder holder)
+            {
                    boolean retry = true;
-
                    gameLoopThread.setRunning(false);
-
-                   while (retry) {
-
-                          try {
-
+                   while (retry)
+                   {
+                          try
+                          {
                                 gameLoopThread.join();
-
                                 retry = false;
+                          }
+                          catch (InterruptedException e)
+                          {
 
-                          } catch (InterruptedException e) {}
-
+                          }
                    }
-
             }
 
-
-
-
-
-            public void surfaceCreated(SurfaceHolder holder) {
-
+            public void surfaceCreated(SurfaceHolder holder)
+            {
                    gameLoopThread.setRunning(true);
                    gameLoopThread.start();
-
             }
 
-
-
-
-
-            public void surfaceChanged(SurfaceHolder holder, int format,
-
-                          int width, int height) {
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
+            {
 
             }
-
-        });
-
+        }
+        );
     }
 
-
-
     @Override
-
-    protected void onDraw(Canvas canvas) {
-
+    protected void onDraw(Canvas canvas)
+    {
         canvas.drawColor(Color.BLACK);
         myScene.onDraw(canvas);
     }
 
-
-
     @Override
-
-    public boolean onTouchEvent(MotionEvent event) {
-
-         if (System.currentTimeMillis() - lastClick > 300) {
-
+    public boolean onTouchEvent(MotionEvent event)
+    {
+         if (System.currentTimeMillis() - lastClick > 300)
+         {
                 lastClick = System.currentTimeMillis();
-
                 float x = event.getX();
-
                 float y = event.getY();
-
-                synchronized (getHolder()) {
+                synchronized (getHolder())
+                {
                     myScene.onTouchEvent(event);
                 }
-
          }
-
          return true;
-
     }
-
 }

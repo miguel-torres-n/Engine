@@ -2,7 +2,6 @@ package com.teclab.torres.engine;
 
 import android.graphics.Canvas;
 import android.view.MotionEvent;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,6 +20,7 @@ public class DisplayContainer extends DisplayObject
         children = new ArrayList();
         numChildren=0;
     }
+
     @Override
     public void onDraw()
     {
@@ -35,6 +35,7 @@ public class DisplayContainer extends DisplayObject
         numChildren=children.size();
         return numChildren;
     }
+
     public int addChildAt(DisplayObject child, int index)
     {
         children.add(index,child);
@@ -42,32 +43,39 @@ public class DisplayContainer extends DisplayObject
         numChildren=children.size();
         return numChildren;
     }
+
     public boolean contains(DisplayObject child)
     {
      return children.contains(child);
     }
+
     public DisplayObject getChildAt(int index)
     {
         return (DisplayObject)children.get(index);
     }
+
     public int getChildIndex(DisplayObject child)
     {
         return children.indexOf(child);
     }
+
     public void removeChild (DisplayObject child)
     {
         children.remove(child);//
     }
+
     public void removeChild(DisplayObject child, boolean _dispose)
     {
         children.remove(child);
         if(_dispose)
             child.dispose();
     }
+
     public DisplayObject removeChildAt(int index)
     {
         return ((DisplayObject)children.remove(index));
     }
+
     public void removeChildAt(int index,boolean _dispose)
     {
         if(_dispose)
@@ -80,14 +88,21 @@ public class DisplayContainer extends DisplayObject
         children.clear();
     }
 
-
-
+    public void removeChildrens(boolean _dispose)
+    {
+        if (_dispose) {
+            for (int i = 0; i < numChildren; i++)
+                ((DisplayObject) children.get(i)).dispose();
+        }
+        children.clear();
+    }
 
     public void removeChildrens(int begin, int end)
     {
         for(int i=end;i>begin;i--)
             children.remove(i);
     }
+
     public void removeChildrens(int begin, int end,boolean _dispose)
     {
         for(int i=end;i>begin;i--)
@@ -97,27 +112,30 @@ public class DisplayContainer extends DisplayObject
             children.remove(i);
         }
     }
+
     public void setChildrenIndex(DisplayObject child, int index)
     {
         children.remove(child);
         children.add(index,child);
     }
+
     public void sortChildren(Comparator comparator)
     {
         Collections.sort(children,comparator);
     }
+
     public void swapChildren(DisplayObject child1, DisplayObject child2)
     {
         int index1=children.indexOf(child1);
         int index2=children.indexOf(child2);
         Collections.swap(children,index1,index2);
     }
+
     public void dispose()
     {
         for(int i=0;i<numChildren;i++)
         {
             ((DisplayObject)children.get(i)).dispose();
         }
-
     }
 }

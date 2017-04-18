@@ -2,13 +2,15 @@ package com.teclab.torres.engine;
 /**
  * Created by Heat on 01/11/2016.
  */
-public class MainScene extends DisplayContainer{
+public class MainScene extends DisplayContainer
+{
 
     npc bad;
-    public MainScene(Resources resources){
-
+    public MainScene(Resources resources)
+    {
         super(resources);
-        for(int i=1; i<7;++i){
+        for(int i=1; i<7;++i)
+        {
             bad = new npc("bad"+i, resources);
             bad.y = (int)(Math.random()*500.0f);
             addChild(bad);
@@ -16,8 +18,8 @@ public class MainScene extends DisplayContainer{
     }
 
     @Override
-    public void update() {
+    public void update()
+    {
 
     }
-
 }
